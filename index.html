@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <textarea name="" id="1" cols="30" rows="10"></textarea><br>
+    <button id="0" onclick="btn()">生成</button>
+    <button onclick="bf()">原字体</button>
+</body>
+<script>
+    //原理 2abcd ==0abcd 
+    function bf() {
+    s = document.getElementById("1").value;
+    document.getElementById("1").value = s.replace(/(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g, function (tmp) {
+        return String.fromCodePoint(tmp.codePointAt(0) % 131072);
+    });
+    }
+    function btn() {
+    s = document.getElementById("1").value;
+    document.getElementById("1").value = s.replace(/(?:[\0-\t\x0B\f\x0E-\u2027\u202A-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g, function (tmp) {
+        return String.fromCodePoint(tmp.codePointAt(0) | 131072);
+    });
+    }
+</script>
+</html>
